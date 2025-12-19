@@ -2,7 +2,9 @@
 
 **FixPro** هو نظام متكامل لإدارة عمليات الصيانة والدعم الفني للأجهزة، يهدف إلى تسهيل التواصل بين العملاء (المستخدمين) وفنيي الصيانة تحت إشراف إداري.
 
-![FixPro Screenshot](assets/images/fixpro-home.png)
+![FixPro Screenshot](assets/images/hompage.png)
+## صفحة تسجيل الدخول
+![Login Screenshot](assets/images/login.png)
 ## 🚀 المميزات الرئيسية
 
 ### 1. لوحة تحكم المستخدم (User Dashboard)
@@ -17,6 +19,7 @@
 - **الفواتير:** إنشاء فواتير إلكترونية للطلبات المكتملة بصيغة PDF.
 
 ### 3. لوحة تحكم الأدمن (Admin Dashboard)
+![Admin Screenshot](assets/images/admin-dashboard.png)
 - **الإدارة الشاملة:** إدارة المستخدمين، الفنيين، والأجهزة المتاحة في النظام.
 - **التقارير:** استعراض الإحصائيات والتقارير العامة للنظام.
 
