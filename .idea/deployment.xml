@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="if0_37770378" remoteFilesAllowedToDisappearOnAutoupload="false" compareModeInSync="TIMESTAMP">
+    <serverData>
+      <paths name="if0_37770378">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/htdocs" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>

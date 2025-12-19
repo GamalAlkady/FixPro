@@ -1,0 +1,316 @@
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">جاهز للمغادرة؟</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">قم بتحديد "تسجيل الخروج" أدناه إذا كنت مستعدًا لإنهاء جلستك الحالية.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">إلغاء</button>
+                <a class="btn btn-primary" href="<?= get_path('logout.php',false) ?>">تسجيل الخروج</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Bootstrap core JavaScript-->
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="<?= assets('vendor/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="<?= assets('vendor/jquery-easing/jquery.easing.min.js') ?>"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="<?= assets('js/sb-admin-2.js') ?>"></script>
+
+
+<!--<script src="https://cdn.datatables.net/buttons/3.2.0/js/dataTables.buttons.js"></script>-->
+
+<script src="<?= assets('js/bootstrap-select.js') ?>"></script>
+<script src="<?= assets('js/defaults-ar_AR.js') ?>"></script>
+<script src="<?= assets('js/script.js') ?>"></script>
+
+
+<script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.2.0/js/dataTables.buttons.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.dataTables.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>-->
+<script src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.html5.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // inspired by http://jsfiddle.net/arunpjohny/564Lxosz/1/
+        $('.table-responsive-stack').each(function (i) {
+            var id = $(this).attr('id');
+            //alert(id);
+            $(this).find("th").each(function(i) {
+                if($(this).text()=='') return;
+                $('#'+id + ' td:nth-child(' + (i + 1) + ')').prepend('<span class="table-responsive-stack-thead">'+$(this).text() + ':</span> ');
+                $('.table-responsive-stack-thead').hide();
+
+            });
+        });
+
+        $( '.table-responsive-stack' ).each(function() {
+            var thCount = $(this).find("th").length;
+            var rowGrow = 100 / thCount + '%';
+            //console.log(rowGrow);
+            // $(this).find("th, td").css('flex-basis', rowGrow);
+        });
+        function flexTable(){
+            if ($(window).width() < 768) {
+
+                $(".table-responsive-stack").each(function (i) {
+                    $(this).find(".table-responsive-stack-thead").show();
+                    $(this).find('thead').hide();
+                    // $(this).find('.text-truncate').css('max-width','');
+                });
+                // window is less than 768px
+            } else {
+                $(".table-responsive-stack").each(function (i) {
+                    $(this).find(".table-responsive-stack-thead").hide();
+                    $(this).find('thead').show();
+                });
+            }
+// flextable
+        }
+        flexTable();
+        window.onresize = function(event) {
+            flexTable();
+        };
+
+        // if ($(window).width() < 768) {
+        //     var shortText = jQuery.trim($('td .text-truncate').text()).substring(0, 10)
+        //         .split(" ").slice(0, -1).join(" ") + "...";
+        //     $("td .text-truncate").text(shortText);
+        // }
+    });
+
+
+
+
+    const arabicFont = {
+        Rubik: {
+            normal: 'http://localhost:8080/FixPro/assets/fonts/rubik/Rubik-Regular.ttf',
+            bold: 'http://localhost:8080/FixPro/assets/fonts/rubik/Rubik-Bold.ttf',
+            italics: '<?='http://localhost:8080/FixPro/assets/fonts/rubik/Rubik-Italic.ttf'?>',
+            bolditalics: '<?='http://localhost:8080/FixPro/assets/fonts/rubik/Rubik-BoldItalic.ttf'?>'
+        }
+    };
+
+    // Configure pdfMake to use the Arabic font
+    pdfMake.fonts = arabicFont;
+
+
+    function intDatatable(columns){
+        $('#dataTable').DataTable({
+            "scrollX": false,
+            order: [],
+            searching: true,
+            select: true,
+            paging: false,
+            info: false,
+            // rtl:true,
+            language: {url: 'https://cdn.datatables.net/plug-ins/1.13.1/i18n/ar.json'},
+            layout: {
+                // topStart: {
+                //     buttons: [{
+                //         extend:'pdfHtml5',
+                //         orientation: 'portrait',
+                //         footer: false,
+                //         alignment: "center",
+                //         message:' ',
+                //         text: "PDF",
+                //         title:'فيكس برو',
+                //         download:'open',
+                //         exportOptions:{
+                //             orthogonal: "pdf",
+                //             columns: columns.reverse(),
+                //         },
+                //         customize: function (doc) {
+                //             doc.styles.tableHeader.alignment = "right";
+                //             doc.styles.tableHeader.fontSize = 9;
+                //             doc.styles.tableHeader.fontWeight = 10;
+                //             doc.content[0]['text'] = doc.content[0]['text'].split(' ').reverse().join(' ');
+                //
+                //             doc.defaultStyle={
+                //                 font: 'Rubik',
+                //                 // direction:'rtl',
+                //                 alignment: 'left',
+                //             };
+                //
+                //             doc.content[2].table.body[0].reverse()
+                //
+                //             doc.content[1].layout = "borders";
+                //             doc.content[2].table.widths = [ '*', '*', '*','*', 80, 80,'*' ];
+                //
+                //             // console.log(doc.content[2].table.body )
+                //             for (var i = 0; i < doc.content[2].table.body.length; i++) {
+                //                 // console.log(doc.content[1].table.body[i].length);
+                //                 for (var j = 0; j < doc.content[2].table.body[i].length; j++) {
+                //                     doc.content[2].table.body[i][j]['text'] = doc.content[2].table.body[i][j]['text'].split(' ').reverse().join('  ');
+                //                     // doc.content[2].table.body[i][j].border='1px solid';
+                //                 }
+                //             }
+                //
+                //
+                //             // Splice the image in after the header, but before the table
+                //             doc.content.splice(1, 0, {
+                //                 margin: [0, 0, 0, 12],
+                //                 alignment: 'center',
+                //                 svg:
+                //                     '<svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="60.000000pt" height="60.000000pt" viewBox="0 0 370.000000 370.000000" preserveAspectRatio="xMidYMid meet"> ' +
+                //                     '<metadata fill="#2196f3">' +
+                //                     'Created by potrace 1.16, written by Peter Selinger 2001-2019 ' +
+                //                     '</metadata> ' +
+                //                     '<g transform="translate(0.000000,370.000000) scale(0.100000,-0.100000)" fill="#2196f3" stroke="none"> ' +
+                //                     '<path d="M1540 3679 c-284 -43 -608 -187 -840 -373 -134 -108 -360 -349 -360 -384 0 -6 -4 -12 -8 -14 -14 -6 -71 -95 -65 -102 4 -3 1 -6 -5 -6 -20 0 -128 -233 -174 -375 -72 -220 -82 -298 -81 -585 0 -205 4 -285 13 -285 1 0 3 -17 5 -37 9 -87 89 -350 117 -385 6 -7 8 -13 5 -13 -3 0 19 -49 48 -110 30 -60 58 -110 63 -110 5 0 9 -6 9 -12 0 -17 75 -128 113 -168 17 -18 30 -35 30 -39 0 -14 137 -156 218 -227 247 -216 543 -361 872 -426 83 -17 152 -22 325 -24 198 -3 234 -1 358 21 286 52 572 179 811 363 65 50 246 220 246 232 0 4 18 26 40 49 81 85 265 393 282 471 2 8 6 17 9 20 18 13 83 241 104 365 21 114 25 172 25 320 -1 233 -17 358 -70 531 -132 432 -394 782 -765 1027 -200 131 -427 224 -660 268 -158 30 -489 34 -665 8z m504 -315 c72 -9 138 -17 146 -18 9 -1 20 -5 25 -8 6 -3 51 -18 100 -33 326 -98 631 -335 828 -641 61 -95 148 -283 161 -349 2 -11 9 -33 16 -50 21 -54 39 -149 46 -235 4 -47 12 -88 18 -92 7 -5 6 -8 -4 -8 -9 0 -11 -3 -5 -8 13 -9 11 -124 -4 -222 -6 -41 -14 -96 -16 -122 -3 -25 -15 -77 -27 -115 -11 -37 -22 -75 -23 -83 -1 -8 -8 -28 -14 -45 -13 -31 -18 -42 -70 -158 -41 -90 -106 -191 -197 -303 -128 -158 -302 -296 -491 -389 -159 -79 -351 -138 -470 -147 -18 -1 -33 -5 -33 -8 0 -3 -19 -6 -42 -6 -24 -1 -74 -3 -113 -6 -40 -3 -75 -1 -82 4 -9 7 -13 6 -13 -3 0 -10 -3 -11 -8 -3 -8 14 -112 23 -112 10 0 -5 -6 -4 -12 1 -7 6 -35 13 -61 17 -78 10 -252 64 -361 112 -495 220 -848 709 -895 1244 -10 106 -7 330 4 362 2 7 6 31 8 53 8 79 66 261 124 385 178 382 535 691 934 810 136 40 169 47 259 56 41 3 102 10 135 14 33 5 73 6 89 4 16 -2 88 -11 160 -20z" fill="#2196f3"/> ' +
+                //                     '<path d="M1103 2897 c-24 -5 -43 -14 -43 -18 0 -5 62 -71 139 -148 l138 -139 -101 -101 -101 -101 -137 137 c-129 128 -139 137 -159 125 -12 -8 -18 -9 -14 -3 3 6 4 11 0 11 -23 0 -48 -166 -34 -234 14 -70 64 -167 111 -215 43 -43 153 -105 208 -116 42 -9 180 -9 208 -1 14 5 24 -1 36 -19 10 -15 22 -23 29 -19 7 4 9 4 5 0 -3 -4 25 -41 64 -81 73 -76 84 -81 130 -52 13 8 41 18 63 22 54 9 142 93 151 145 4 19 14 43 22 53 15 17 9 25 -90 125 l-105 107 9 40 c15 62 4 173 -22 233 -12 28 -27 52 -32 52 -5 0 -7 4 -3 9 3 6 -19 35 -49 66 -105 107 -278 157 -423 122z" fill="#2196f3"/> ' +
+                //                     '<path d="M2651 2786 c-55 -42 -101 -87 -138 -137 -30 -41 -158 -181 -285 -312 l-230 -237 -36 30 c-20 16 -46 30 -57 30 -19 0 -94 -65 -87 -76 9 -17 -5 -43 -55 -95 -50 -52 -60 -59 -95 -59 -38 0 -66 -21 -172 -127 -383 -387 -598 -607 -611 -627 -28 -43 -13 -89 53 -155 103 -104 127 -120 174 -119 43 0 44 1 388 344 190 190 355 351 367 359 25 18 46 65 41 97 -4 31 105 138 142 138 17 0 40 14 64 39 l38 39 -20 39 c-11 22 -27 45 -35 51 -11 10 32 57 242 264 141 139 281 271 312 293 36 25 70 61 95 100 21 33 47 69 56 79 10 11 18 25 18 31 0 13 -62 75 -75 75 -6 0 -48 -29 -94 -64z" fill="#2196f3"/> ' +
+                //                     '<path d="M2116 1841 c-12 -13 -29 -20 -46 -18 -40 3 -151 -103 -149 -141 2 -31 -16 -80 -37 -103 -13 -15 5 -36 180 -214 l194 -199 6 -66 c21 -205 188 -335 385 -298 77 14 118 37 177 100 59 62 83 122 85 213 2 78 -13 132 -54 191 -58 84 -149 133 -261 139 l-49 3 -207 207 c-204 204 -206 206 -224 186z m564 -581 c119 -61 114 -235 -8 -297 -117 -59 -244 20 -244 152 0 127 135 205 252 145z" fill="#2196f3"/> ' +
+                //                     '</g> ' +
+                //                     '</svg>'
+                //             });
+                //
+                //             // Data URL generated by http://dataurl.net/#dataurlmaker
+                //         }
+                //     }]
+                // }
+            },
+            columnDefs: [
+                // targets may be classes
+                {  targets: "hiddenCols", visible: false  }
+            ],
+
+            initComplete: function () {
+                this.api()
+                    .columns()
+                    .every(function () {
+                        let column = this;
+
+                        // Create select element
+                        let select = document.createElement('select');
+                        select.add(new Option(''));
+                        column.header().replaceChildren(select);
+
+                        // Apply listener for user change in value
+                        select.addEventListener('change', function () {
+                            column
+                                .search(select.value, {exact: true})
+                                .draw();
+                        });
+
+                        // Add list of options
+                        column
+                            .data()
+                            .unique()
+                            .sort()
+                            .each(function (d, j) {
+                                select.add(new Option(d));
+                            });
+                    });
+            }
+        });
+
+
+
+        $('#filterButton').click(function() {
+            var table = $('#dataTable').DataTable();
+            let dataReports=table.rows( {search:'applied'} ).data().toArray()
+            var headers = $('#th th').map(function() {
+                return $(this).text();
+            }).get();
+
+            console.log(headers);
+            console.log(dataReports);
+            $.post("../../pdfReports.php",{headers,data:dataReports},
+                function(pdfUrl) {
+                    window.open(pdfUrl, '_blank');
+                })
+        })
+    }
+
+    $(document).ready(function() {
+
+
+        $('#filterButton').on('click',function (){
+            // استخراج رؤوس الأعمدة
+            var headers = [];
+            $('#dataTable thead tr:first th').each(function() {
+                headers.push($(this).text());
+            });
+            console.log("رؤوس الأعمدة:", headers);
+
+            // استخراج البيانات من الصفوف
+            var rows = [];
+            $('#dataTable tbody tr').each(function() {
+                var row = [];
+                $(this).find('td').each(function() {
+                    row.push($(this).text());
+                });
+                rows.push(row);
+            });
+            console.log("البيانات:", rows);
+        })
+
+    });
+
+
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+
+        $("#confirmPassword").on("keyup", function () {
+            if (
+                $("#newPassword").val() != "" &&
+                $("#confirmPassword").val() != "" &&
+                $("#confirmPassword").val() == $("#newPassword").val()
+            ) {
+                this.setCustomValidity('');
+            }
+            else this.setCustomValidity(true);
+        });
+
+        $('#formFile').on('change', function () {
+            if ($(this).val() != '')
+                $("#formFileLabel").text($(this).val());
+        })
+    })()
+
+
+</script>
+</body>
+
+</html>
+
