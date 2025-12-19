@@ -53,7 +53,7 @@ $posts = (new DB('posts'))->orderBy('created_at LIMIT 3')->get();
 <header class="header">
 
     <div class="contact-info">
-        <p> المملكة العربية السعودية , تبوك<i class="fas fa-map"></i></p>
+        <p> المملكة العربية السعودية , الرياض<i class="fas fa-map"></i></p>
         <p> fixpro@gmail.com <i class="fas fa-envelope"></i></p>
         <?php if (!isset($_SESSION['role'])): ?>
         <p><a href="<?= BASE_PATH( 'login.php') ?>" style="color: white">تسجيل الدخول</a> <i class="fas fa-user-circle"></i></p>
@@ -92,7 +92,7 @@ $posts = (new DB('posts'))->orderBy('created_at LIMIT 3')->get();
 <section class="home pt-5 mt-5" id="home">
 
     <div class="image pe-5">
-        <img src="assets/images/home-img2.png" alt="">
+        <img src="assets/images/fixpro-home.png" alt="">
     </div>
 
     <div class="content">
@@ -102,7 +102,7 @@ $posts = (new DB('posts'))->orderBy('created_at LIMIT 3')->get();
             وحتى الشاشات. سواء كنت تواجه مشكلة في نظام التشغيل، أو تلف في الشاشة، أو بطء في الأداء، فنحن نقدم لك الحل
             الأمثل.</p>
         <?php if (!isset($_SESSION['role'])): ?>
-        <a href="login.php" class="btn">ابدأ الان</a>
+        <a href="login.php" class="btn btn-primary w-25 btn-xl fs-2">ابدأ الان</a>
         <?php else:?>
         <a href="<?= get_path( 'index.php') ?>" class="btn">لوحة التحكم</a>
         <?php endif;?>
@@ -267,6 +267,9 @@ $posts = (new DB('posts'))->orderBy('created_at LIMIT 3')->get();
                 </div>
             </div>
         <?php endforeach; ?>
+
+
+
 
 
     </div>

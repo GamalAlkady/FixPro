@@ -57,7 +57,7 @@ section {
     color: #2597f4;
 }
 
-.btn {
+/* .btn {
     display: inline-block;
     margin-top: 1rem;
     padding: 1rem 3rem;
@@ -67,7 +67,7 @@ section {
     text-transform: capitalize;
     color: #334;
     border: 0.2rem solid #334;
-}
+} */
 
 .btn:hover {
     background: #2597f4;
